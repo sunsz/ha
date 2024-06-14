@@ -1,0 +1,270 @@
+type: custom:button-card
+card_mod:
+  style: |
+    :host {
+    margin: -1% 0px -1% 0px;
+    }
+show_icon: true
+entity_picture: /local/icon/sunsz.png
+show_entity_picture: true
+tap_action:
+  action: more-info
+entity: person.sunsz
+show_state: true
+name: sunsz
+show_name: true
+state:
+  - value: not_home
+    styles:
+      icon:
+        - filter: grayscale(100%)
+custom_fields:
+  graph:
+    card:
+      type: custom:mini-graph-card
+      card_mod:
+        style: |
+          ha-card {
+          --ha-card-background: transparent; 
+          color: var(--secondary-text-color);
+          border-radius: 0px;
+          border: none
+          }
+      entities:
+        - entity: sensor.sun_si_ze_de_iphone_steps
+      show:
+        icon: false
+        name: false
+        points: false
+        state: false
+      font_size: 0
+      color_thresholds:
+        - value: 100
+          color: '#afbfdf'
+        - value: 1000
+          color: '#8cadea'
+        - value: 5000
+          color: '#454ab0'
+  topright:
+    card:
+      type: custom:button-card
+      entity: sensor.sun_si_ze_de_iphone_battery_level
+      tap_action:
+        action: none
+      show_state: true
+      show_name: false
+      card_mod:
+        style: |
+          ha-card {
+           background: none;
+           border-radius: 0px;
+           border: none
+          } 
+      styles:
+        grid:
+          - grid-template-areas: '"i s s"'
+          - grid-template-columns: 1fr
+          - grid-template-rows: 1fr min-content min-content
+        icon:
+          - width: 19px
+          - color: |
+              [[[
+                if (states['sensor.sun_si_ze_de_iphone_battery_level'] <= 15)  
+                  return "#A52A2A";
+                if (states['sensor.sun_si_ze_de_iphone_battery_level'] <= 40)  
+                  return "#EEC900";
+                return "#7CCD7C";
+              ]]]   
+        state:
+          - font-size: 15px
+          - font-weight: bold
+          - margin-top: 10%
+          - color: var(--secondary-text-color)
+  dis_state:
+    card:
+      type: custom:button-card
+      entity: sensor.dis_home
+      name: 离家
+      card_mod:
+        style: |
+          ha-card {
+           background: none;
+           border-radius: 0px;
+           border: none
+          }      
+        action: none
+      show_state: true
+      show_icon: false
+      show_name: false
+      styles:
+        state:
+          - font-size: 13px
+          - font-weight: bold
+          - color: RGB(205,201,201,0.9)
+  dis_icon:
+    card:
+      type: custom:button-card
+      entity: sensor.dis_home
+      card_mod:
+        style: |
+          ha-card {
+           background: none;
+           border-radius: 0px;
+           border: none
+          }     
+        action: none
+      show_state: false
+      show_icon: true
+      show_name: false
+      styles:
+        icon:
+          - width: 18px
+          - color: RGB(205,201,201,0.9)
+  move_icon:
+    card:
+      type: custom:button-card
+      entity: sensor.sun_si_ze_de_iphone_activity
+      card_mod:
+        style: |
+          ha-card {
+           background: none;
+           border-radius: 0px;
+           border: none
+          }     
+        action: none
+      show_state: false
+      show_icon: true
+      show_name: false
+      styles:
+        icon:
+          - width: 18px
+          - color: RGB(205,201,201,0.9)
+  move_state:
+    card:
+      type: custom:button-card
+      entity: sensor.sun_si_ze_de_iphone_activity
+      card_mod:
+        style: |
+          ha-card {
+           background: none;
+           border-radius: 0px;
+           border: none
+          }      
+        action: none
+      show_state: false
+      show_icon: false
+      show_name: true
+      name: |
+        [[[
+          if (states["sensor.sun_si_ze_de_iphone_activity"].state == 'Stationary') return '静止';  
+          if (states["sensor.sun_si_ze_de_iphone_activity"].state == 'Walking') return '步行';     
+          if (states["sensor.sun_si_ze_de_iphone_activity"].state == 'Automotive') return '开车';  
+          else return '未知֪';
+        ]]] 
+      styles:
+        name:
+          - font-size: 13px
+          - font-weight: bold
+          - color: RGB(205,201,201,0.9)
+  timehome_icon:
+    card:
+      type: custom:button-card
+      entity: sensor.time_home
+      card_mod:
+        style: |
+          ha-card {
+           background: none;
+           border-radius: 0px;
+           border: none
+          }      
+        action: none
+      show_state: false
+      show_icon: true
+      show_name: false
+      styles:
+        icon:
+          - width: 16px
+          - color: RGB(205,201,201,0.9)
+  timehome_state:
+    card:
+      type: custom:button-card
+      entity: sensor.time_home
+      card_mod:
+        style: |
+          ha-card {
+           background: none;
+           border-radius: 0px;
+           border: none
+          }      
+        action: none
+      show_state: true
+      show_icon: false
+      show_name: false
+      styles:
+        state:
+          - font-size: 13px
+          - font-weight: bold
+          - color: RGB(205,201,201,0.9)
+styles:
+  custom_fields:
+    graph:
+      - position: absolute
+      - left: '-1px'
+      - top: 66%
+    dis_state:
+      - position: absolute
+      - left: 12.5%
+      - top: 8%
+    topright:
+      - position: absolute
+      - left: 69%
+      - top: 4.5%
+    dis_icon:
+      - position: absolute
+      - left: 3%
+      - top: 6%
+    move_icon:
+      - position: absolute
+      - left: 3.2%
+      - top: 34%
+    move_state:
+      - position: absolute
+      - left: 12.5%
+      - top: 36%
+    timehome_icon:
+      - position: absolute
+      - left: 3.5%
+      - top: 20%
+    timehome_state:
+      - position: absolute
+      - left: 12.5%
+      - top: 22%
+  grid:
+    - grid-template-areas: '"i" "n" "s"'
+    - grid-template-columns: 1fr
+    - grid-template-rows: 1fr min-content min-content
+  card:
+    - border-radius: 20px
+    - height: 155px
+  img_cell:
+    - padding-top: 0px
+  entity_picture:
+    - width: 15%
+  icon:
+    - position: relative
+    - left: 0px
+    - top: null
+  name:
+    - color: var(--secondary-text-color)
+    - font-weight: bold
+    - font-size: 22px
+    - position: relative
+    - left: 0%
+    - top: '-15%'
+  state:
+    - font-size: 12px
+    - font-weight: bold
+    - position: relative
+    - left: 0%
+    - top: '-50%'
+    - color: var(--secondary-text-color)
